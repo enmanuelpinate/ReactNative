@@ -1,11 +1,12 @@
-import React from 'react';
-import { AppRegistry, View } from 'react-native';
-import WeatherList from './src/components/WeatherList';
+import { AppRegistry } from 'react-native';
+import HomeScreen from './src/components/HomeScreen';
+import DetailScreen from './src/components/DetailScreen';
+import { createStackNavigator, createAppContainer } from 'react-navigation';
 
-const App = () => (
-    <View>
-        <WeatherList />
-    </View>
-);
+const navigation = createStackNavigator({
+    Home: { screen: HomeScreen },
+    WeatherDetail: { screen: DetailScreen }
+});
 
+const App = createAppContainer(navigation);
 AppRegistry.registerComponent('FirstProject', () => App);

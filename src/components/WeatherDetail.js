@@ -1,30 +1,35 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { View, Text, Image } from 'react-native';
-import Card from './Card';
 import moment from 'moment';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
-const WeatherDetail = (props) => {
-    const { iconStyle, text1Style, text2Style, viewStyle, daylyStyle} = styles;
+export default class WeatherDetail extends Component {
+    onPress = () => {
+        this.props.onPressItem(this.props.weather);
+    };
 
-    return (
-        <Card>
+    render() {
+        const { iconStyle, text1Style, text2Style, viewStyle, daylyStyle, containerStyle} = styles;
+        return (
+            <TouchableOpacity style={containerStyle} onPress={this.onPress}>
                 <View style={viewStyle}>
                     <View>
-                        <Image style={iconStyle} source={{ uri: 'http://openweathermap.org/img/w/' + props.data.weather[0].icon + '.png'}} />
+                        <Image style={iconStyle} source={{ uri: 'http://openweathermap.org/img/w/' + this.props.weather.weather[0].icon + '.png'}} />
                     </View>
                     <View style={daylyStyle}>
                         <Text style={text1Style}>{
-                                moment(props.data.dt_txt).calendar()
+                                moment(this.props.weather.dt_txt).calendar()
                         }</Text>
-                        <Text style={text2Style}>{props.data.weather[0].description}</Text>
+                        <Text style={text2Style}>{this.props.weather.weather[0].description}</Text>
                     </View>
                 </View>
                 <View>
-                    <Text style={text1Style}>{props.data.main.temp.toFixed(0)}</Text>
-                    <Text style={text2Style}>{props.data.main.temp_min.toFixed(0)}</Text>
+                    <Text style={text1Style}>{`${this.props.weather.main.temp.toFixed(0)}\u00B0`}</Text>
+                    <Text style={text2Style}>{`${this.props.weather.main.temp_min.toFixed(0)}\u00B0`}</Text>
                 </View>
-        </Card>
-    );
+            </TouchableOpacity>
+        );
+    }
 };
 
 const styles = {
@@ -44,7 +49,12 @@ const styles = {
     },
     text2Style: {
         fontSize: 18
+    },
+    containerStyle: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingLeft: 20,
+        paddingRight: 45,
+        height: 70
     }
 };
-
-export default WeatherDetail;

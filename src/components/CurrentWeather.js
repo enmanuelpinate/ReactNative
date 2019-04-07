@@ -10,11 +10,11 @@ const CurrentWeather = (props) => {
             <Text style={textStyle}>{moment(props.nanda.dt_txt).calendar()}</Text>
             <View style={cwextStyle}>
                 <View style={cwInStyle}>
-                    <Text style={tempStyle}>{props.nanda.main.temp.toFixed(0)}</Text>
+                    <Text style={tempStyle}>{`${props.nanda.main.temp.toFixed(0)}\u00B0`}</Text>
                     <Image style={iconStyle} source={{ uri: 'http://openweathermap.org/img/w/' + props.nanda.weather[0].icon + '.png' }} />
                 </View>
                 <View style={cwInStyle}>
-                    <Text style={tempMinStyle}>{props.nanda.main.temp_min.toFixed(0)}</Text>
+                    <Text style={tempMinStyle}>{`${props.nanda.main.temp_min.toFixed(0)}\u00B0`}</Text>
                     <Text style={tempMinStyle}>{props.nanda.weather[0].description}</Text>
                 </View>
             </View>
