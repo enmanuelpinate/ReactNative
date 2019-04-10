@@ -13,7 +13,7 @@ export default class DetailScreen extends Component {
         const selectedItem = this.props.navigation.state.params.otherParam;
         return (
             <View style={{ flex: 1 }}>
-                <Header headerText={'Details'}/>
+                <Header headerText={'Details'} style={{fontSize: 25}} />
                 <View style={{ backgroundColor: '#EAEDEB', flex: 2 }}>
                     <SummaryDetail data={selectedItem}/>
                 </View>
