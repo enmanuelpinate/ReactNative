@@ -31,7 +31,7 @@ export default class HomeScreen extends Component {
         return (this.state.loading ? <SplashScreen headerText={'Sunshine'}/>
         :
             <View style={weatherListContainer}>
-                <Header headerText={'Sunshine'} style={{fontSize: 35, fontFamily: 'Pacifico-Regular'}}/>
+                <Header headerText={'Sunshine'} icon1={'settings'} style={{fontSize: 35, fontFamily: 'Pacifico-Regular'}}/>
                 <ScrollView>
                     <CurrentWeather nanda={this.state.actualWeather}/>
                     <FlatList
