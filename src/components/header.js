@@ -3,12 +3,12 @@ import { Text, View, Image } from 'react-native';
 
 const Header = (props) => {
 
-    const { textStyle, viewStyle, imageStyle } = styles;
+    const { textStyle, headerContainer, imageStyle } = styles;
 
     return (
-        <View style={viewStyle}>
+        <View style={headerContainer}>
             <Image style={imageStyle} source={require('./Sun.png')} />
-            <Text style={textStyle}>{props.headerText}</Text>
+            <Text style={[textStyle, props.style]}>{props.headerText}</Text>
         </View>
     );
 };
@@ -18,7 +18,7 @@ const styles = {
         width: 50,
         height: 50
     },
-    viewStyle: {
+    headerContainer: {
         flexDirection: 'row',
         backgroundColor: '#1CC1FD',
         alignItems: 'center',
@@ -31,8 +31,6 @@ const styles = {
         position: 'relative',
     },
     textStyle: {
-        fontSize: 35,
-        fontFamily: 'Pacifico-Regular',
         paddingLeft: 10,
         color: 'white',
     }

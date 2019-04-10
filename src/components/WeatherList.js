@@ -1,52 +1,60 @@
 import React, {Component} from 'react';
-import { ScrollView, View, FlatList } from 'react-native';
-import axios from 'axios';
-import Header from './header';
-import WeatherDetail from './WeatherDetail';
-import SplashScreen from './Splash';
-import CurrentWeather from './CurrentWeather';
+import { View, Text, Image } from 'react-native';
+import moment from 'moment';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export default class WeatherList extends Component {
-    state = { loading: true, Weather: {}, ActualWeather: [] };
+    onPress = () => {
+        this.props.onPressItem(this.props.weather);
+    };
 
-    componentDidMount() {
-        axios.get('http://api.openweathermap.org/data/2.5/forecast?id=1821306&units=metric&appid=e3c0fd3b93792861eff408fec7a55481')
-        .then(response => {
-            this.setState({
-                loading: false,
-                ActualWeather: response.data.list[0],
-                Weather: response.data.list,
-            });
-        });
-    }
-
-    render () { 
-        const { weatherListContainer } = styles;
-
-        return (this.state.loading ? <SplashScreen headerText={'Sunshine'}/>
-        : 
-        <View style={weatherListContainer}>
-            <Header headerText={'Sunshine'}/>
-            <ScrollView>
-                <CurrentWeather nanda={this.state.ActualWeather}/>
-                <FlatList
-                    data={this.state.Weather}
-                    renderItem={item => 
-                    <WeatherDetail 
-                        key={item.item.weather[0].id} 
-                        weather={item.item}
-                        onPressItem={() => this.props.onPressItem(this.props.weather)}
-                    />}
-                />
-            </ScrollView>
-        </View>
+    render() {
+        const { iconStyle, text1Style, text2Style, viewStyle, daylyStyle, containerStyle} = styles;
+        return (
+            <TouchableOpacity style={containerStyle} onPress={this.onPress}>
+                <View style={viewStyle}>
+                    <View>
+                        <Image style={iconStyle} source={{ uri: 'http://openweathermap.org/img/w/' + this.props.weather.weather[0].icon + '.png'}} />
+                    </View>
+                    <View style={daylyStyle}>
+                        <Text style={text1Style}>{
+                                moment(this.props.weather.dt_txt).calendar()
+                        }</Text>
+                        <Text style={text2Style}>{this.props.weather.weather[0].description}</Text>
+                    </View>
+                </View>
+                <View>
+                    <Text style={text1Style}>{`${this.props.weather.main.temp.toFixed(0)}\u00B0`}</Text>
+                    <Text style={text2Style}>{`${this.props.weather.main.temp_min.toFixed(0)}\u00B0`}</Text>
+                </View>
+            </TouchableOpacity>
         );
     }
-
-}
+};
 
 const styles = {
-    weatherListContainer: {
-        flex: 1,
+    viewStyle: {
+        flexDirection: 'row'
+    },
+    daylyStyle: {
+        paddingLeft: 10
+    },
+    iconStyle: {
+        width: 50,
+        height: 50,
+    },
+    text1Style: {
+        fontSize: 20,
+        fontWeight: 'bold'
+    },
+    text2Style: {
+        fontSize: 18
+    },
+    containerStyle: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingLeft: 20,
+        paddingRight: 45,
+        height: 70
     }
 };

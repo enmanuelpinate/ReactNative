@@ -3,17 +3,17 @@ import { View, Text, Image } from 'react-native';
 import moment from 'moment';
 
 const CurrentWeather = (props) => {
-    const { cwStyle, textStyle, cwInStyle, cwextStyle, tempStyle, tempMinStyle, iconStyle } = styles;
-
+    const { currentWeatherContainer, summaryContainer, textStyle, summaryInterno, tempStyle, tempMinStyle, iconStyle } = styles;
+    
     return (
-        <View style={cwStyle}>
+        <View style={currentWeatherContainer}>
             <Text style={textStyle}>{moment(props.nanda.dt_txt).calendar()}</Text>
-            <View style={cwextStyle}>
-                <View style={cwInStyle}>
+            <View style={summaryContainer}>
+                <View style={summaryInterno}>
                     <Text style={tempStyle}>{`${props.nanda.main.temp.toFixed(0)}\u00B0`}</Text>
                     <Image style={iconStyle} source={{ uri: 'http://openweathermap.org/img/w/' + props.nanda.weather[0].icon + '.png' }} />
                 </View>
-                <View style={cwInStyle}>
+                <View style={summaryInterno}>
                     <Text style={tempMinStyle}>{`${props.nanda.main.temp_min.toFixed(0)}\u00B0`}</Text>
                     <Text style={tempMinStyle}>{props.nanda.weather[0].description}</Text>
                 </View>
@@ -23,15 +23,15 @@ const CurrentWeather = (props) => {
 };
 
 const styles = {
-    cwStyle: {
+    currentWeatherContainer: {
         height: 250,
         backgroundColor: '#1CC1FD',
     },
-    cwextStyle: {
+    summaryContainer: {
         paddingRight: 20,
         paddingLeft: 75
     },
-    cwInStyle: {
+    summaryInterno: {
         flexDirection: 'row',
         justifyContent: 'space-between'
     },
