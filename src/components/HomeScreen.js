@@ -14,7 +14,7 @@ export default class HomeScreen extends Component {
 
     state = { loading: true, weathers: {}, actualWeather: [] };
 
-    componentDidMount() {
+    componentWillMount() {
         axios.get('http://api.openweathermap.org/data/2.5/forecast?id=1821306&units=metric&appid=e3c0fd3b93792861eff408fec7a55481')
         .then(response => {
             this.setState({
