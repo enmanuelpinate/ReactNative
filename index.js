@@ -1,11 +1,13 @@
 import { AppRegistry } from 'react-native';
 import HomeScreen from './src/components/HomeScreen';
 import DetailScreen from './src/components/DetailScreen';
+import SettingsScreen from './src/components/SettingsScreen';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 
 const navigation = createStackNavigator({
     Home: { screen: HomeScreen },
-    WeatherDetail: { screen: DetailScreen }
+    WeatherDetail: { screen: DetailScreen },
+    Settings: {screen: SettingsScreen }
 });
 
 const App = createAppContainer(navigation);

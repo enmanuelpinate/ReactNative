@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, View, FlatList, Text } from 'react-native';
+import { ScrollView, View, FlatList } from 'react-native';
 import SplashScreen from './Splash';
 import CurrentWeather from './CurrentWeather';
 import Header from './Header';
@@ -31,7 +31,8 @@ export default class HomeScreen extends Component {
         return (this.state.loading ? <SplashScreen headerText={'Sunshine'}/>
         :
             <View style={weatherListContainer}>
-                <Header headerText={'Sunshine'} icon1={'settings'} style={{fontSize: 35, fontFamily: 'Pacifico-Regular'}}/>
+                <Header headerText={'Sunshine'} icon1={'settings'} style={{fontSize: 35, fontFamily: 'Pacifico-Regular'}}
+                onPress={() => navigate('Settings')}/>
                 <ScrollView>
                     <CurrentWeather nanda={this.state.actualWeather}/>
                     <FlatList

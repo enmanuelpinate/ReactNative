@@ -1,24 +1,34 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { Text, View, Image } from 'react-native';
 import Icon1 from 'react-native-vector-icons/dist/Feather';
 import Icon2 from 'react-native-vector-icons/dist/AntDesign';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
-const Header = (props) => {
+export default class Header extends Component {
+    static navigationOptions = {
+        title: 'Settings',
+        header: null
+    };
 
-    const { textStyle, headerContainer, imageStyle, iconStyle, headerInternContainer } = styles;
-
-    return (
-        <View style={headerContainer}>
-            <View style={headerInternContainer}>
-                <Image style={imageStyle} source={require('./Sun.png')} />
-                <Text style={[textStyle, props.style]}>{props.headerText}</Text>
+    render () {
+        const { textStyle, headerContainer, imageStyle, iconStyle, headerInternContainer } = styles;
+        return (
+            <View style={headerContainer}>
+                <View style={headerInternContainer}>
+                    <Image style={imageStyle} source={require('./Sun.png')} />
+                    <Text style={[textStyle, this.props.style]}>{this.props.headerText}</Text>
+                </View>
+                <View style={headerInternContainer}>
+                    <TouchableOpacity>
+                        <Icon2 name={this.props.icon2} style={iconStyle}/>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={this.props.onPress}>
+                        <Icon1 name={this.props.icon1} style={iconStyle}/>
+                    </TouchableOpacity>
+                </View>
             </View>
-            <View style={headerInternContainer}>
-                <Icon2 name={props.icon2} style={iconStyle}/>
-                <Icon1 name={props.icon1} style={iconStyle}/>
-            </View>
-        </View>
-    );
+        );
+    }
 };
 
 const styles = {
@@ -53,5 +63,3 @@ const styles = {
         paddingRight: 20
     }
 };
-
-export default Header;
