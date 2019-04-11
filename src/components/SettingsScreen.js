@@ -22,17 +22,18 @@ export default class SettingsScreen extends Component {
     }
 
     render() {
+        const { navigate } = this.props.navigation;
         const {textSettings, touchableStyle, settingsContainer} = styles;
         return (
             <View style={{ flex: 1 }}>
                 <Header headerText={'Settings'} style={{fontSize: 25}} />
                 <View style={settingsContainer}>
-                    <TouchableOpacity style={touchableStyle}>
+                    <TouchableOpacity style={touchableStyle} onPress={() => navigate('SelectACity')}>
                         <Text style={textSettings}>Location</Text>
                         <Text>{this.state.city.name}</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={touchableStyle}>
-                        <Text style={textSettings}>Temperature units</Text>
+                        <Text style={textSettings}>Temperature Units</Text>
                     </TouchableOpacity>
                 </View>
             </View>
