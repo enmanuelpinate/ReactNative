@@ -1,45 +1,69 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native';
 import Header from './Header';
+import SearchInput, { createFilter } from 'react-native-search-filter';
 import cityList from './cityList/cityList.json';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+const KEYS_TO_FILTERS = ['name'];
 
 export default class SelectACity extends Component {
     static navigationOptions = {
         title: 'SelectACity',
         header: null
     };
+    constructor(props) {
+        super(props);
+        this.state = {
+          searchTerm: ''
+        }
+      }
+
+    searchUpdated(term) {
+        this.setState({ searchTerm: term })
+    }
 
     render() {
-        const {cityListContainer, cityListText} = styles;
+        const { navigate } = this.props.navigation;
+        const filteredCities = cityList.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS));
         return (
             <View style={{ flex: 1 }}>
                 <Header headerText={'Select a city'} style={{fontSize: 25}} />
-                <ScrollView>
-                    <FlatList
-                        data={cityList}
-                        renderItem={({item}) =>
-                            <View style={cityListContainer}>
-                                <Text style={cityListText}>{item.name}, {item.country}</Text>
-                            </View>
-                        }/>
-                </ScrollView>
+                <View style={styles.container}>
+                    <SearchInput 
+                    onChangeText={(term) => { this.searchUpdated(term) }} 
+                    style={styles.searchInput}
+                    placeholder="Type to search..."
+                    />
+                    <ScrollView>
+                        {filteredCities.map(cityList => {
+                            return (
+                            <TouchableOpacity key={cityList.id.toString()} onPress={() => navigate('Home', {
+                                selectedCity: cityList.id
+                            })} style={styles.cityItem}>
+                                <Text>{cityList.name}, {cityList.country}</Text>
+                            </TouchableOpacity>
+                            )
+                        })}
+                    </ScrollView>
+                </View>
             </View>
         );
     }
 }
 
-const styles = {
-    cityListContainer: {
-        height: 40,
-        paddingLeft: 30, 
-        paddingRight: 30,
-        borderBottomWidth: 1,
-        borderBottomColor: 'grey'
+const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: '#fff',
+      justifyContent: 'flex-start'
     },
-    cityListText: {
-        fontSize: 15,
-        fontWeight: 'bold',
-        paddingTop: 20
+    cityItem:{
+      borderBottomWidth: 0.5,
+      borderColor: 'rgba(0,0,0,0.3)',
+      padding: 10
+    },
+    searchInput:{
+      padding: 10,
+      borderColor: '#CCC',
+      borderWidth: 1
     }
-};
+  });

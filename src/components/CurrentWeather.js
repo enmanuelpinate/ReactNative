@@ -7,6 +7,7 @@ const CurrentWeather = (props) => {
     
     return (
         <View style={currentWeatherContainer}>
+            <Text>{props.location.name}</Text>
             <Text style={textStyle}>{moment(props.nanda.dt_txt).calendar()}</Text>
             <View style={summaryContainer}>
                 <View style={summaryInterno}>
@@ -24,7 +25,7 @@ const CurrentWeather = (props) => {
 
 const styles = {
     currentWeatherContainer: {
-        height: 250,
+        height: 210,
         backgroundColor: '#1CC1FD',
     },
     summaryContainer: {
