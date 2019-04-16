@@ -17,6 +17,7 @@
     "moment": "^2.24.0",
     "react": "16.6.3",
     "react-native": "0.58.6",
+    "react-native-check-box": "^2.1.7",
     "react-native-gesture-handler": "^1.1.0",
     "react-native-navigation": "^2.16.0",
     "react-native-search-filter": "^0.1.4",

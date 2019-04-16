@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Alert } from 'react-native';
 import Header from './Header';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import axios from 'axios';
 
 export default class SettingsScreen extends Component {
     static navigationOptions = {
@@ -10,19 +9,26 @@ export default class SettingsScreen extends Component {
         header: null
     };
 
-    state = { city: {} };
-
-    componentWillMount() {
-        axios.get('http://api.openweathermap.org/data/2.5/forecast?id=1821306&units=metric&appid=e3c0fd3b93792861eff408fec7a55481')
-        .then(response => {
-            this.setState({
-                city: response.data.city,
-            });
-        });
+    selectUnits = () => {
+        Alert.alert(
+            'Units',
+            'Please select the units you want to use',
+            [
+              {text: 'Ask me later', onPress: () => console.log('Ask me later pressed')},
+              {
+                text: 'Cancel',
+                onPress: () => console.log('Cancel Pressed'),
+                style: 'cancel',
+              },
+              {text: 'OK', onPress: () => console.log('OK Pressed')},
+            ],
+            {cancelable: false},
+          );
     }
 
     render() {
         const { navigate } = this.props.navigation;
+        const selectedItem = this.props.navigation.state.params.otherParam;
         const {textSettings, touchableStyle, settingsContainer} = styles;
         return (
             <View style={{ flex: 1 }}>
@@ -30,9 +36,9 @@ export default class SettingsScreen extends Component {
                 <View style={settingsContainer}>
                     <TouchableOpacity style={touchableStyle} onPress={() => navigate('SelectACity')}>
                         <Text style={textSettings}>Location</Text>
-                        <Text>{this.state.city.name}</Text>
+                        <Text>{selectedItem}</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={touchableStyle}>
+                    <TouchableOpacity style={touchableStyle} onPress={this.selectUnits}>
                         <Text style={textSettings}>Temperature Units</Text>
                     </TouchableOpacity>
                 </View>

@@ -51,7 +51,9 @@ export default class HomeScreen extends Component {
         :
             <View style={weatherListContainer}>
                 <Header headerText={'Sunshine'} icon1={'settings'} style={{fontSize: 35, fontFamily: 'Pacifico-Regular'}}
-                onPress={() => navigate('Settings')}/>
+                onPress={() => navigate('Settings', {
+                    otherParam: this.state.location.name
+                })}/>
                 <ScrollView>
                     <CurrentWeather nanda={this.state.actualWeather} location={this.state.location}/>
                     <FlatList
