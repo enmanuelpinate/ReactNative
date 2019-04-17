@@ -37,6 +37,9 @@ export default class HomeScreen extends Component {
         const { navigate } = this.props.navigation;
         const { weatherListContainer } = styles;
         selectedLocation = this.updateLocationState(this.props.navigation.state.params)
+
+        selectedLocation == '1821306' ? null
+        :
         axios.get('http://api.openweathermap.org/data/2.5/forecast?id=' + selectedLocation + '&units=metric&appid=e3c0fd3b93792861eff408fec7a55481')
         .then(response => {
             this.setState({
@@ -58,6 +61,7 @@ export default class HomeScreen extends Component {
                     <CurrentWeather nanda={this.state.actualWeather} location={this.state.location}/>
                     <FlatList
                         data={this.state.weathers}
+                        keyExtractor={item => console.log(item.dt_txt.toString())}
                         renderItem={item => 
                         <WeatherList 
                             key={item.index.toString()} 

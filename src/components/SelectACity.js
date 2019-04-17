@@ -26,7 +26,7 @@ export default class SelectACity extends Component {
         const filteredCities = cityList.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS));
         return (
             <View style={{ flex: 1 }}>
-                <Header headerText={'Select a city'} style={{fontSize: 25}} />
+                <Header headerText={'Select a city'} icon3={'ios-arrow-back'} style={{fontSize: 25}} />
                 <View style={styles.container}>
                     <SearchInput 
                     onChangeText={(term) => { this.searchUpdated(term) }} 

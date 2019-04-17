@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { Text, View, Image } from 'react-native';
 import Icon1 from 'react-native-vector-icons/dist/Feather';
 import Icon2 from 'react-native-vector-icons/dist/AntDesign';
+import Icon3 from 'react-native-vector-icons/dist/Ionicons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export default class Header extends Component {
@@ -15,6 +16,7 @@ export default class Header extends Component {
         return (
             <View style={headerContainer}>
                 <View style={headerInternContainer}>
+                    <Icon3 name={this.props.icon3} style={iconStyle}/>
                     <Image style={imageStyle} source={require('./Sun.png')} />
                     <Text style={[textStyle, this.props.style]}>{this.props.headerText}</Text>
                 </View>

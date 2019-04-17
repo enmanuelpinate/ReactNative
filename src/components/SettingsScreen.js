@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, Alert } from 'react-native';
 import Header from './Header';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { CheckBox } from 'react-native-elements'
 
 export default class SettingsScreen extends Component {
     static navigationOptions = {
@@ -9,38 +10,52 @@ export default class SettingsScreen extends Component {
         header: null
     };
 
+    state = {
+        imperialUnitsSelected: false
+    };
+
     selectUnits = () => {
         Alert.alert(
-            'Units',
-            'Please select the units you want to use',
+            'Temperture Units',
             [
-              {text: 'Ask me later', onPress: () => console.log('Ask me later pressed')},
               {
                 text: 'Cancel',
                 onPress: () => console.log('Cancel Pressed'),
                 style: 'cancel',
               },
-              {text: 'OK', onPress: () => console.log('OK Pressed')},
+              {CheckBox: 'nanda'}
             ],
-            {cancelable: false},
+            {cancelable: true},
           );
     }
 
     render() {
         const { navigate } = this.props.navigation;
         const selectedItem = this.props.navigation.state.params.otherParam;
-        const {textSettings, touchableStyle, settingsContainer} = styles;
+        const {textSettings, touchableStyle, settingsContainer, checkboxStyle} = styles;
         return (
             <View style={{ flex: 1 }}>
-                <Header headerText={'Settings'} style={{fontSize: 25}} />
+                <Header headerText={'Settings'} icon3={'ios-arrow-back'} style={{fontSize: 25}} />
                 <View style={settingsContainer}>
                     <TouchableOpacity style={touchableStyle} onPress={() => navigate('SelectACity')}>
                         <Text style={textSettings}>Location</Text>
                         <Text>{selectedItem}</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={touchableStyle} onPress={this.selectUnits}>
+                    <View style={checkboxStyle}>
                         <Text style={textSettings}>Temperature Units</Text>
-                    </TouchableOpacity>
+                        <CheckBox
+                            title='Metric'
+                            checkedIcon='dot-circle-o'
+                            uncheckedIcon='circle-o'
+                            checked={this.state.imperialUnitsSelected.checked}
+                        />
+                        <CheckBox
+                            title='Imperial'
+                            checkedIcon='dot-circle-o'
+                            uncheckedIcon='circle-o'
+                            checked={this.state.imperialUnitsSelected.checked}
+                        />
+                    </View>
                 </View>
             </View>
         );
@@ -61,6 +76,10 @@ const styles = {
     },
     touchableStyle: {
         height: 70,
+        borderBottomWidth: 1,
+        borderBottomColor: 'black'
+    },
+    checkboxStyle: {
         borderBottomWidth: 1,
         borderBottomColor: 'black'
     }
