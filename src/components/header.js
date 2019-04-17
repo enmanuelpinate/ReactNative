@@ -16,7 +16,9 @@ export default class Header extends Component {
         return (
             <View style={headerContainer}>
                 <View style={headerInternContainer}>
-                    <Icon3 name={this.props.icon3} style={iconStyle}/>
+                    <TouchableOpacity onPress={this.props.goBack}>
+                        <Icon3 name={this.props.icon3} style={iconStyle}/>
+                    </TouchableOpacity>
                     <Image style={imageStyle} source={require('./Sun.png')} />
                     <Text style={[textStyle, this.props.style]}>{this.props.headerText}</Text>
                 </View>

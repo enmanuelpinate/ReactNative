@@ -15,7 +15,7 @@ export default class DetailScreen extends Component {
         return (
             <View style={{ flex: 1 }}>
                 <Header headerText={'Details'}  icon1={'settings'} icon2={'sharealt'} icon3={'ios-arrow-back'} style={{fontSize: 25}} 
-                onPress={() => navigate('Settings')}/>
+                onPress={() => navigate('Settings')} goBack={() => navigate('Home')}/>
                 <View style={{ backgroundColor: '#EAEDEB', flex: 2 }}>
                     <SummaryDetail data={selectedItem}/>
                 </View>

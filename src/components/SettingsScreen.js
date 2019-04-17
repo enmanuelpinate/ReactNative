@@ -35,7 +35,7 @@ export default class SettingsScreen extends Component {
         const {textSettings, touchableStyle, settingsContainer, checkboxStyle} = styles;
         return (
             <View style={{ flex: 1 }}>
-                <Header headerText={'Settings'} icon3={'ios-arrow-back'} style={{fontSize: 25}} />
+                <Header headerText={'Settings'} icon3={'ios-arrow-back'} goBack={() => navigate('Home')} style={{fontSize: 25}} />
                 <View style={settingsContainer}>
                     <TouchableOpacity style={touchableStyle} onPress={() => navigate('SelectACity')}>
                         <Text style={textSettings}>Location</Text>
