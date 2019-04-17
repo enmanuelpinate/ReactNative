@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { View, Text, Alert } from 'react-native';
 import Header from './Header';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { CheckBox } from 'react-native-elements'
+import { CheckBox } from 'react-native-elements';
+import {AsyncStorage} from 'react-native';
 
 export default class SettingsScreen extends Component {
     static navigationOptions = {
@@ -10,23 +11,29 @@ export default class SettingsScreen extends Component {
         header: null
     };
 
-    state = {
-        imperialUnitsSelected: false
-    };
+    constructor(props) {
+        super(props);
+        this.state = {
+            metricChecked: true,
+            imperialChecked: false
+        }
+    }
 
-    selectUnits = () => {
+    alertFunction = (screen) => {
+        const { navigate } = this.props.navigation;
         Alert.alert(
-            'Temperture Units',
+            'Temperature Units',
+            'Are you sure you want to change your temperature units?',
             [
               {
                 text: 'Cancel',
                 onPress: () => console.log('Cancel Pressed'),
                 style: 'cancel',
               },
-              {CheckBox: 'nanda'}
+              {text: 'OK', onPress: () => navigate(screen)},
             ],
-            {cancelable: true},
-          );
+            {cancelable: false},
+        );
     }
 
     render() {
@@ -47,13 +54,25 @@ export default class SettingsScreen extends Component {
                             title='Metric'
                             checkedIcon='dot-circle-o'
                             uncheckedIcon='circle-o'
-                            checked={this.state.imperialUnitsSelected.checked}
+                            checked={this.state.metricChecked}
+                            onPress={() => {
+                                this.setState({
+                                metricChecked: !this.state.metricChecked,
+                                imperialChecked: !this.state.imperialChecked})
+                                this.alertFunction('Home')
+                            }}
                         />
                         <CheckBox
                             title='Imperial'
                             checkedIcon='dot-circle-o'
                             uncheckedIcon='circle-o'
-                            checked={this.state.imperialUnitsSelected.checked}
+                            checked={this.state.imperialChecked}
+                            onPress={() => {
+                                this.setState({
+                                imperialChecked: !this.state.imperialChecked,
+                                metricChecked: !this.state.metricChecked})
+                                this.alertFunction('Home')
+                            }}
                         />
                     </View>
                 </View>

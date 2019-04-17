@@ -68,7 +68,8 @@ export default class HomeScreen extends Component {
                             weather={item.item}
                             onPressItem={() => {
                                 navigate('WeatherDetail', {
-                                    otherParam: item.item
+                                    otherParam: item.item,
+                                    locationParam:  this.state.location.name
                                 });
                             }}
                         />}

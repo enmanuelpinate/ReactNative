@@ -12,10 +12,14 @@ export default class DetailScreen extends Component {
     render() {
         const { navigate } = this.props.navigation;
         const selectedItem = this.props.navigation.state.params.otherParam;
+        const selectedLocation = this.props.navigation.state.params.locationParam;
         return (
             <View style={{ flex: 1 }}>
-                <Header headerText={'Details'}  icon1={'settings'} icon2={'sharealt'} icon3={'ios-arrow-back'} style={{fontSize: 25}} 
-                onPress={() => navigate('Settings')} goBack={() => navigate('Home')}/>
+                <Header headerText={'Details'}  icon1={'settings'} icon2={'sharealt'} 
+                icon3={'ios-arrow-back'} style={{fontSize: 25}} 
+                onPress={() => navigate('Settings', {
+                    otherParam: selectedLocation
+                })} goBack={() => navigate('Home')}/>
                 <View style={{ backgroundColor: '#EAEDEB', flex: 2 }}>
                     <SummaryDetail data={selectedItem}/>
                 </View>
