@@ -4,7 +4,6 @@ import Icon1 from 'react-native-vector-icons/dist/Feather';
 import Icon2 from 'react-native-vector-icons/dist/AntDesign';
 import Icon3 from 'react-native-vector-icons/dist/Ionicons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import Sharing from './Sharing';
 
 export default class Header extends Component {
     static navigationOptions = {
