@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { View, Text, Alert } from 'react-native';
+import { View, Text } from 'react-native';
 import Header from './Header';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { CheckBox } from 'react-native-elements';
-import {AsyncStorage} from 'react-native';
 
 export default class SettingsScreen extends Component {
     static navigationOptions = {
@@ -19,22 +18,6 @@ export default class SettingsScreen extends Component {
         }
     }
 
-    alertFunction = (screen) => {
-        const { navigate } = this.props.navigation;
-        Alert.alert(
-            'Temperature Units',
-            'Are you sure you want to change your temperature units?',
-            [
-              {
-                text: 'Cancel',
-                onPress: () => console.log('Cancel Pressed'),
-                style: 'cancel',
-              },
-              {text: 'OK', onPress: () => navigate(screen)},
-            ],
-            {cancelable: false},
-        );
-    }
 
     render() {
         const { navigate } = this.props.navigation;
@@ -57,9 +40,12 @@ export default class SettingsScreen extends Component {
                             checked={this.state.metricChecked}
                             onPress={() => {
                                 this.setState({
-                                metricChecked: !this.state.metricChecked,
-                                imperialChecked: !this.state.imperialChecked})
-                                this.alertFunction('Home')
+                                    metricChecked: !this.state.metricChecked,
+                                    imperialChecked: !this.state.imperialChecked
+                                })
+                                navigate('Home', {
+                                    unitsParam: this.state.metricChecked
+                                })
                             }}
                         />
                         <CheckBox
@@ -69,9 +55,12 @@ export default class SettingsScreen extends Component {
                             checked={this.state.imperialChecked}
                             onPress={() => {
                                 this.setState({
-                                imperialChecked: !this.state.imperialChecked,
-                                metricChecked: !this.state.metricChecked})
-                                this.alertFunction('Home')
+                                    imperialChecked: !this.state.imperialChecked,
+                                    metricChecked: !this.state.metricChecked
+                                })
+                                navigate('Home', {
+                                    unitsParam: this.state.metricChecked
+                                })
                             }}
                         />
                     </View>
