@@ -12,16 +12,37 @@ export default class SettingsScreen extends Component {
 
     constructor(props) {
         super(props);
+        const savedUnits = this.savedUnitsFunction(this.props.navigation.state.params.savedUnits);
         this.state = {
-            metricChecked: true,
-            imperialChecked: false
+            metricChecked: savedUnits,
+            imperialChecked: !savedUnits
         }
     }
 
+    changeSelectedBox = (bool, actualLocation) => {
+        const { navigate } = this.props.navigation;
+        return  ( (bool) ? null
+            : (this.setState({
+                metricChecked: !this.state.metricChecked,
+                imperialChecked: !this.state.imperialChecked
+            }),
+            navigate('Home', {
+                unitsParam: !this.state.metricChecked,
+                selectedCity: actualLocation
+            }))
+        );
+    }
+
+    savedUnitsFunction = (value) => {
+        return ((value === 'metric') ? value = true
+        : value = false
+        )
+    }
 
     render() {
         const { navigate } = this.props.navigation;
-        const selectedItem = this.props.navigation.state.params.otherParam;
+        const actualCityName= this.props.navigation.state.params.otherParam.name;
+        const actualCityId= this.props.navigation.state.params.otherParam.id;
         const {textSettings, touchableStyle, settingsContainer, checkboxStyle} = styles;
         return (
             <View style={{ flex: 1 }}>
@@ -29,7 +50,7 @@ export default class SettingsScreen extends Component {
                 <View style={settingsContainer}>
                     <TouchableOpacity style={touchableStyle} onPress={() => navigate('SelectACity')}>
                         <Text style={textSettings}>Location</Text>
-                        <Text>{selectedItem}</Text>
+                        <Text>{actualCityName}</Text>
                     </TouchableOpacity>
                     <View style={checkboxStyle}>
                         <Text style={textSettings}>Temperature Units</Text>
@@ -39,13 +60,7 @@ export default class SettingsScreen extends Component {
                             uncheckedIcon='circle-o'
                             checked={this.state.metricChecked}
                             onPress={() => {
-                                this.setState({
-                                    metricChecked: !this.state.metricChecked,
-                                    imperialChecked: !this.state.imperialChecked
-                                })
-                                navigate('Home', {
-                                    unitsParam: this.state.metricChecked
-                                })
+                                this.changeSelectedBox(this.state.metricChecked, actualCityId)
                             }}
                         />
                         <CheckBox
@@ -54,13 +69,7 @@ export default class SettingsScreen extends Component {
                             uncheckedIcon='circle-o'
                             checked={this.state.imperialChecked}
                             onPress={() => {
-                                this.setState({
-                                    imperialChecked: !this.state.imperialChecked,
-                                    metricChecked: !this.state.metricChecked
-                                })
-                                navigate('Home', {
-                                    unitsParam: this.state.metricChecked
-                                })
+                                this.changeSelectedBox(this.state.imperialChecked, actualCityId)
                             }}
                         />
                     </View>

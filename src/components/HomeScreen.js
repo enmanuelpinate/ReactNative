@@ -12,7 +12,9 @@ export default class HomeScreen extends Component {
         header: null
     };
 
-    state = { loading: true, location: [], weathers: {}, actualWeather: [] };
+    state = { loading: true, location: [], weathers: {}, actualWeather: [],
+        oldSelectedLocation: '1821306', oldSelectedUnits: 'metric'
+    };
 
     componentWillMount() {
         axios.get('http://api.openweathermap.org/data/2.5/forecast?id=1821306&units=metric&appid=e3c0fd3b93792861eff408fec7a55481')
@@ -21,7 +23,7 @@ export default class HomeScreen extends Component {
                 loading: false,
                 actualWeather: response.data.list[0],
                 location: response.data.city,
-                weathers: response.data.list,
+                weathers: response.data.list
             });
         });
     }
@@ -33,35 +35,49 @@ export default class HomeScreen extends Component {
         );
     }
 
+    updateUnitsState = (item) => {
+        return ((item == undefined) ? item = 'metric'
+            : (item.unitsParam) ? item = 'metric'
+            : item ='imperial'
+        )
+    }
+
     render() {
         const { navigate } = this.props.navigation;
         const { weatherListContainer } = styles;
-        selectedLocation = this.updateLocationState(this.props.navigation.state.params)
+        newSelectedLocation = this.updateLocationState(this.props.navigation.state.params);
+        newSelectedUnits = this.updateUnitsState(this.props.navigation.state.params);
+        
+        console.log(this.state.oldSelectedUnits + ' and ' + newSelectedUnits)
 
-        selectedLocation == '1821306' ? null
-        :
-        axios.get('http://api.openweathermap.org/data/2.5/forecast?id=' + selectedLocation + '&units=metric&appid=e3c0fd3b93792861eff408fec7a55481')
-        .then(response => {
-            this.setState({
-                loading: false,
-                actualWeather: response.data.list[0],
-                location: response.data.city,
-                weathers: response.data.list,
+        if(newSelectedLocation.toString() !== this.state.oldSelectedLocation.toString() || newSelectedUnits.toString() !== this.state.oldSelectedUnits.toString()) {
+            axios.get('http://api.openweathermap.org/data/2.5/forecast?id=' + newSelectedLocation + '&units=' + newSelectedUnits + '&appid=e3c0fd3b93792861eff408fec7a55481')
+            .then(response => {
+                this.setState({
+                    loading: false,
+                    actualWeather: response.data.list[0],
+                    location: response.data.city,
+                    weathers: response.data.list
+                });
             });
-        });
+
+            this.state.oldSelectedLocation = newSelectedLocation;
+            this.state.oldSelectedUnits = newSelectedUnits;
+        }
 
         return (this.state.loading ? <SplashScreen headerText={'Sunshine'}/>
         :
             <View style={weatherListContainer}>
                 <Header headerText={'Sunshine'} icon1={'settings'} style={{fontSize: 35, fontFamily: 'Pacifico-Regular'}}
                 onPress={() => navigate('Settings', {
-                    otherParam: this.state.location.name
+                    otherParam: this.state.location,
+                    savedUnits: newSelectedUnits
                 })}/>
                 <ScrollView>
                     <CurrentWeather nanda={this.state.actualWeather} location={this.state.location}/>
                     <FlatList
                         data={this.state.weathers}
-                        keyExtractor={item => console.log(item.dt_txt.toString())}
+                        keyExtractor={item => item.dt_txt.toString()}
                         renderItem={item => 
                         <WeatherList 
                             key={item.index.toString()} 
@@ -69,7 +85,8 @@ export default class HomeScreen extends Component {
                             onPressItem={() => {
                                 navigate('WeatherDetail', {
                                     otherParam: item.item,
-                                    locationParam:  this.state.location.name
+                                    locationParam:  this.state.location,
+                                    savedUnits: newSelectedUnits
                                 });
                             }}
                         />}

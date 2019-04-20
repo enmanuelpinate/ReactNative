@@ -25,7 +25,7 @@ const CurrentWeather = (props) => {
 
 const styles = {
     currentWeatherContainer: {
-        height: 250,
+        height: 260,
         backgroundColor: '#1CC1FD',
     },
     summaryContainer: {
