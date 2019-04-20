@@ -3,6 +3,7 @@ import { View, Text } from 'react-native';
 import Header from './Header';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { CheckBox } from 'react-native-elements';
+import LoadingView from './Sharing';
 
 export default class SettingsScreen extends Component {
     static navigationOptions = {

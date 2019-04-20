@@ -23,7 +23,7 @@ export default class Header extends Component {
                     <Text style={[textStyle, this.props.style]}>{this.props.headerText}</Text>
                 </View>
                 <View style={headerInternContainer}>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={this.props.onShare}>
                         <Icon2 name={this.props.icon2} style={iconStyle}/>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={this.props.onPress}>

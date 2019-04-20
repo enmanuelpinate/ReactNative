@@ -40,6 +40,7 @@ const styles = {
         paddingTop: 15,
         fontSize: 25,
         color: 'white',
+        paddingRight: 20,
         paddingLeft: 75
     },
     tempStyle: {
