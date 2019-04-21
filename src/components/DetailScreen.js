@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View } from 'react-native';
 import Header from './Header';
 import SummaryDetail from './SummaryDetail';
+import Sharing from './Sharing';
 
 export default class DetailScreen extends Component {
     static navigationOptions = {
@@ -21,7 +22,7 @@ export default class DetailScreen extends Component {
                 onPress={() => navigate('Settings', {
                     otherParam: selectedLocation,
                     savedUnits: savedUnits
-                })} goBack={() => navigate('Home')}/>
+                })} goBack={() => navigate('Home')} onShare={() => navigate('Sharing')}/>
                 <View style={{ backgroundColor: '#EAEDEB', flex: 2 }}>
                     <SummaryDetail data={selectedItem}/>
                 </View>
