@@ -48,8 +48,6 @@ export default class HomeScreen extends Component {
         const { weatherListContainer } = styles;
         newSelectedLocation = this.updateLocationState(this.props.navigation.state.params);
         newSelectedUnits = this.updateUnitsState(this.props.navigation.state.params);
-
-        console.log(newSelectedUnits)
     
         if(newSelectedLocation.toString() !== this.state.oldSelectedLocation.toString() || newSelectedUnits.toString() !== this.state.oldSelectedUnits.toString()) {
             axios.get('http://api.openweathermap.org/data/2.5/forecast?id=' + newSelectedLocation + '&units=' + newSelectedUnits + '&appid=e3c0fd3b93792861eff408fec7a55481')

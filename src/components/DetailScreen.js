@@ -53,7 +53,7 @@ export default class DetailScreen extends Component {
                 })} goBack={() => navigate('Home')} onShare={this.onOpen.bind(this)}/>
                 <View style={styles.container}>
                     <View style={{ backgroundColor: '#EAEDEB', flex: 2 }}>
-                        <SummaryDetail data={selectedItem}/>
+                        <SummaryDetail data={selectedItem} units={savedUnits}/>
                     </View>
                     <ShareSheet visible={this.state.visible} onCancel={this.onCancel.bind(this)}>
                     <Button iconSrc={{ uri: TWITTER_ICON }}

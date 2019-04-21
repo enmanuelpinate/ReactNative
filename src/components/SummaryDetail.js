@@ -3,6 +3,13 @@ import { View, Text, Image } from 'react-native';
 import moment from 'moment';
 
 const SummaryDetail = (props) => {
+
+    unistFunction = (item) => {
+        return ((item == 'metric') ? item = 'km/h NW'
+            : item = 'mph NW'
+        );
+    }
+
     const { summarDetailContainer, summarDetailInternContainer, iconStyle, dayDate, monthDate, mainTemp, minTemp, summaryText } = styles;
         return (
             <View style={summarDetailContainer}>
@@ -17,7 +24,7 @@ const SummaryDetail = (props) => {
                 </View>
                 <Text style={summaryText}>Humidity: {props.data.main.humidity} %</Text>
                 <Text style={summaryText}>Pressure: {props.data.main.pressure} hPa</Text>
-                <Text style={summaryText}>Wind: {props.data.wind.speed} km/h NW</Text>
+                <Text style={summaryText}>Wind: {props.data.wind.speed} {this.unistFunction(props.units)}</Text>
             </View>
         );
 }
