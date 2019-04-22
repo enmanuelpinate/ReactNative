@@ -18,7 +18,7 @@ export default class SettingsScreen extends Component {
             imperialChecked: !savedUnits
         }
     }
-
+    
     changeSelectedBox = (bool, actualLocation) => {
         const { navigate } = this.props.navigation;
         return  ( (bool) ? null
@@ -44,6 +44,7 @@ export default class SettingsScreen extends Component {
         const actualCityName= this.props.navigation.state.params.otherParam.name;
         const actualCityId= this.props.navigation.state.params.otherParam.id;
         const {textSettings, touchableStyle, settingsContainer, checkboxStyle} = styles;
+        console.log(this.retrieveData)
         return (
             <View style={{ flex: 1 }}>
                 <Header headerText={'Settings'} icon3={'ios-arrow-back'} goBack={() => navigate('Home')} style={{fontSize: 25}} />

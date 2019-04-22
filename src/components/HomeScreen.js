@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, View, FlatList } from 'react-native';
+import { ScrollView, View, FlatList, ActivityIndicator } from 'react-native';
 import SplashScreen from './Splash';
 import CurrentWeather from './CurrentWeather';
 import Header from './Header';
@@ -62,6 +62,17 @@ export default class HomeScreen extends Component {
 
             this.state.oldSelectedLocation = newSelectedLocation;
             this.state.oldSelectedUnits = newSelectedUnits;
+            return(this.state.loading ? null
+                : 
+                <View>
+                    <Header headerText={'Sunshine'} icon1={'settings'} style={{fontSize: 35, fontFamily: 'Pacifico-Regular'}}
+                    onPress={() => navigate('Settings', {
+                        otherParam: this.state.location,
+                        savedUnits: newSelectedUnits
+                    })}/>
+                    <ActivityIndicator size="large" color="#1CC1FD" />
+                </View>
+            );
         }
 
         return (this.state.loading ? <SplashScreen headerText={'Sunshine'}/>
