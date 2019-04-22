@@ -34,9 +34,9 @@ export default class DetailScreen extends Component {
     render() {
         const { navigate } = this.props.navigation;
         let shareOptions = {
-            title: "React Native",
-            message: "Hola mundo",
-            url: "http://facebook.github.io/react-native/",
+            title: "Sunshine App",
+            message: `Weather forecast: ${this.props.navigation.state.params.locationParam.name}`,
+            url: 'https://openweathermap.org/city/' + this.props.navigation.state.params.locationParam.id,
             subject: "Share Link" //  for email
           };
         const selectedItem = this.props.navigation.state.params.otherParam;
