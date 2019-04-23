@@ -16,15 +16,9 @@ export default class SelectACity extends Component {
         super(props);
         this.state = {
           searchTerm: '',
-          closeIconDisplay: false,
-          loading: true,
-          cities: []
+          closeIconDisplay: false
         }
       }
-
-    componentWillMount() {
-        this.setState({ cities: cityList, loading: false })
-    }
 
     searchUpdated(term) {
         this.setState({ searchTerm: term })
@@ -33,17 +27,10 @@ export default class SelectACity extends Component {
     }
 
     render() {
-        const data = this.state.cities;
         const { navigate } = this.props.navigation;
-        const filteredCities = data.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS));
+        const filteredCities = cityList.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS));
         const display = this.state.closeIconDisplay ? "flex" : "none";
-        return ( this.state.loading ? 
-            <View>
-                <Header headerText={'Select a city'} icon3={'ios-arrow-back'} style={{fontSize: 25}} 
-                goBack={() => navigate('Settings')}/>
-                <ActivityIndicator size="large" color="#1CC1FD" />
-            </View>
-            :
+        return (
             <View style={{ flex: 1 }}>
                 <Header headerText={'Select a city'} icon3={'ios-arrow-back'} style={{fontSize: 25}} 
                 goBack={() => navigate('Settings')}/>
@@ -59,12 +46,13 @@ export default class SelectACity extends Component {
                         </TouchableOpacity>
                     </View>
                     <ScrollView style={styles.cityContainer}>
-                        {filteredCities.map(data => {
-                            return (
-                            <TouchableOpacity key={data.id.toString()} onPress={() => navigate('Home', {
-                                selectedCity: data.id
+                        {filteredCities.map(cityList => {
+                            return (this.state.searchTerm === '' ? null
+                            :
+                            <TouchableOpacity key={cityList.id.toString()} onPress={() => navigate('Home', {
+                                selectedCity: cityList.id
                             })} style={styles.cityItem}>
-                                <Text>{data.name}, {data.country}</Text>
+                                <Text>{cityList.name}, {cityList.country}</Text>
                                 <IconArrow name={'ios-arrow-forward'} style={styles.iconStyle}/>
                             </TouchableOpacity>
                             )
