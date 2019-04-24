@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, ScrollView, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native';
 import Header from './Header';
 import SearchInput, { createFilter } from 'react-native-search-filter';
 import cityList from './cityList/cityList.json';
@@ -18,8 +18,7 @@ export default class SelectACity extends Component {
           searchTerm: '',
           closeIconDisplay: false
         }
-      }
-
+    }
     searchUpdated(term) {
         this.setState({ searchTerm: term })
         term === '' ? this.setState({ closeIconDisplay: false })
@@ -32,8 +31,8 @@ export default class SelectACity extends Component {
         const display = this.state.closeIconDisplay ? "flex" : "none";
         return (
             <View style={{ flex: 1 }}>
-                <Header headerText={'Select a city'} icon3={'ios-arrow-back'} style={{fontSize: 25}} 
-                goBack={() => navigate('Settings')}/>
+                <Header headerText={'Select a city'} icon1={'map-pin'} icon3={'ios-arrow-back'} style={{fontSize: 25}} 
+                goBack={() => navigate('Settings')} onPress={() => navigate('Map')}/>
                 <View style={styles.container}>
                     <View style={styles.searchContainer}>
                         <SearchInput 
