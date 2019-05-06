@@ -31,7 +31,7 @@ export default class SelectACity extends Component {
         const display = this.state.closeIconDisplay ? "flex" : "none";
         return (
             <View style={{ flex: 1 }}>
-                <Header headerText={'Select a city'} icon1={'map-pin'} icon3={'ios-arrow-back'} style={{fontSize: 25}} 
+                <Header headerText={'Select a city'} icon3={'ios-arrow-back'} style={{fontSize: 25}} 
                 goBack={() => navigate('Settings')} onPress={() => navigate('Map')}/>
                 <View style={styles.container}>
                     <View style={styles.searchContainer}>

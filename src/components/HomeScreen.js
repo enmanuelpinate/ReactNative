@@ -84,7 +84,7 @@ export default class HomeScreen extends Component {
                     savedUnits: newSelectedUnits
                 })}/>
                 <ScrollView>
-                    <CurrentWeather nanda={this.state.actualWeather} location={this.state.location}/>
+                    <CurrentWeather nanda={this.state.actualWeather} location={this.state.location} savedUnits={newSelectedUnits}/>
                     <FlatList
                         data={this.state.weathers}
                         keyExtractor={item => item.dt_txt.toString()}

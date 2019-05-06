@@ -5,17 +5,23 @@ import moment from 'moment';
 const CurrentWeather = (props) => {
     const { currentWeatherContainer, summaryContainer, textStyle, summaryInterno, tempStyle, tempMinStyle, iconStyle } = styles;
     
+    weatherTemperature = (item, value) => {
+        return((value === 'metric') ? item = `${item.toFixed(0)}\u00B0C`
+            : item = `${item.toFixed(0)}\u00B0F`
+        );
+    }
+
     return (
         <View style={currentWeatherContainer}>
             <Text style={textStyle}>{props.location.name}</Text>
             <Text style={textStyle}>{moment(props.nanda.dt_txt).calendar()}</Text>
             <View style={summaryContainer}>
                 <View style={summaryInterno}>
-                    <Text style={tempStyle}>{`${props.nanda.main.temp.toFixed(0)}\u00B0`}</Text>
+                    <Text style={tempStyle}>{this.weatherTemperature(props.nanda.main.temp, props.savedUnits)}</Text>
                     <Image style={iconStyle} source={{ uri: 'http://openweathermap.org/img/w/' + props.nanda.weather[0].icon + '.png' }} />
                 </View>
                 <View style={summaryInterno}>
-                    <Text style={tempMinStyle}>{`${props.nanda.main.temp_min.toFixed(0)}\u00B0`}</Text>
+                    <Text style={tempMinStyle}>{this.weatherTemperature(props.nanda.main.temp_min, props.savedUnits)}</Text>
                     <Text style={tempMinStyle}>{props.nanda.weather[0].description}</Text>
                 </View>
             </View>

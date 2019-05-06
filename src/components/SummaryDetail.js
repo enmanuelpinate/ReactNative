@@ -9,6 +9,11 @@ const SummaryDetail = (props) => {
             : item = 'mph NW'
         );
     }
+    weatherTemperature = (item, value) => {
+        return((value === 'metric') ? item = `${item.toFixed(0)}\u00B0C`
+            : item = `${item.toFixed(0)}\u00B0F`
+        );
+    }
 
     const { summarDetailContainer, summarDetailInternContainer, iconStyle, dayDate, monthDate, mainTemp, minTemp, summaryText } = styles;
         return (
@@ -17,8 +22,8 @@ const SummaryDetail = (props) => {
                 <Text style={monthDate}>{moment(props.data.dt_txt).format('MMMM Do')}</Text>
                 <View style={summarDetailInternContainer}>
                     <View>
-                        <Text style={mainTemp}>{`${props.data.main.temp.toFixed(0)}\u00B0`}</Text>
-                        <Text style={minTemp}>{`${props.data.main.temp_min.toFixed(0)}\u00B0`}</Text>
+                        <Text style={mainTemp}>{this.weatherTemperature(props.data.main.temp, props.units)}</Text>
+                        <Text style={minTemp}>{this.weatherTemperature(props.data.main.temp_min, props.units)}</Text>
                     </View>
                     <Image style={iconStyle} source={{ uri: 'http://openweathermap.org/img/w/' + props.data.weather[0].icon + '.png'}} />
                 </View>
@@ -42,11 +47,11 @@ const styles = {
     },
     mainTemp: {
         fontWeight: 'bold',
-        fontSize: 90,
+        fontSize: 70,
         paddingLeft: 30
     },
     minTemp: {
-        fontSize: 50,
+        fontSize: 40,
         paddingLeft: 20
     },
     dayDate: {
